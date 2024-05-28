@@ -8,8 +8,9 @@ const char* PASSWORD = "password";
 ESP8266WebServer server(80);
 
 /* TODO: edit pin names and uses */
-const int pinUP = D7;
-const int pinDOWN = D8;
+const int pinUP = D5;
+const int pinDOWN = D6;
+const int pinENA = D4;
 const int connLED = LED_BUILTIN;
 
 // Declare movement states
@@ -26,6 +27,7 @@ void setup() {
   pinMode(pinUP, OUTPUT);
   pinMode(pinDOWN, OUTPUT);
   pinMode(connLED, OUTPUT);
+  pinMode(pinENA, OUTPUT);
 
   WiFi.begin(SSID, PASSWORD);
   Serial.println();
@@ -86,18 +88,21 @@ void loop() {
       /* TODO: handle up state */
       digitalWrite(pinUP, HIGH);
       digitalWrite(pinDOWN, LOW);
+      analogWrite(pinENA, 255);
       break;
     case DOWN:
 
       /* TODO: handle down state */
       digitalWrite(pinUP, LOW);
       digitalWrite(pinDOWN, HIGH);
+      analogWrite(pinENA, 255);
       break;
     default:
       
       /* TODO: handle idle state */
       digitalWrite(pinUP, LOW);
       digitalWrite(pinDOWN, LOW);
+      analogWrite(pinENA, 255);
       break;
   }
 }
